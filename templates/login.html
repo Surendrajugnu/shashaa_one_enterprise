@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <h2>Sign in to Shashaa One Enterprise</h2>
+      <p style="margin: 0.5rem 0 0; color: #64748b;">Access your quotes and saved insurance plans.</p>
+    </div>
+  </div>
+  <div class="card" style="max-width: 540px; margin: 0 auto;">
+    <form method="post" action="/login">
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter password">
+      <button type="submit" class="button-primary">Sign in</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

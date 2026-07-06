@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <h2>Instant insurance quote</h2>
+      <p style="margin: 0.5rem 0 0; color: #64748b;">Choose a policy category and get an estimated premium.</p>
+    </div>
+    <a href="/">Back to home</a>
+  </div>
+  <div class="quote-grid">
+    <div class="quote-panel">
+      <h3>Quote details</h3>
+      <form method="post" action="/quote">
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com">
+        <label for="age">Age range</label>
+        <select id="age" name="age">
+          <option value="">Select age</option>
+          <option value="18-25">18-25</option>
+          <option value="26-35">26-35</option>
+          <option value="36-45">36-45</option>
+          <option value="46-55">46-55</option>
+          <option value="56+">56+</option>
+        </select>
+        <label for="category">Policy category</label>
+        <select id="category" name="category">
+          <option value="">Select category</option>
+          <option value="health">Health</option>
+          <option value="life">Life</option>
+          <option value="motor">Motor</option>
+          <option value="travel">Travel</option>
+        </select>
+        <label for="sum_assured">Sum assured (₹)</label>
+        <input type="number" id="sum_assured" name="sum_assured" placeholder="100000">
+        <label for="location">City</label>
+        <select id="location" name="location">
+          <option value="">Select city</option>
+          <option>Delhi</option>
+          <option>Mumbai</option>
+          <option>Bengaluru</option>
+          <option>Chennai</option>
+          <option>Kolkata</option>
+        </select>
+        <button type="submit" class="button-primary">Calculate quote</button>
+      </form>
+    </div>
+    <div class="quote-summary">
+      <h3>Recommended estimates</h3>
+      {% if results %}
+        <p><strong>Name:</strong> {{ results.name }}</p>
+        <p><strong>Category:</strong> {{ results.category | capitalize }}</p>
+        <p><strong>Location:</strong> {{ results.location }}</p>
+        <p class="highlight">Estimated premium: ₹{{ results.quote }} / year</p>
+        <p><strong>Suggested plan:</strong> {{ results.plan.title }}</p>
+        <p>{{ results.plan.details }}</p>
+      {% else %}
+        <p>Select a category and submit your details to view an estimated premium.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

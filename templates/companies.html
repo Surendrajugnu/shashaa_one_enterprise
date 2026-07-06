@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <h2>Insurer marketplace</h2>
+      <p style="margin: 0.5rem 0 0; color: #64748b;">Browse leading insurance partners with competitive plans.</p>
+    </div>
+    <a href="/quote">Start a quote</a>
+  </div>
+  <div class="partner-grid">
+    {% for company in companies %}
+      <div class="partner-card partner-card-large">
+        <div>
+          <h3>{{ company.name }}</h3>
+          <p>{{ company.description }}</p>
+        </div>
+        <span class="badge">{{ company.rating }} ★</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

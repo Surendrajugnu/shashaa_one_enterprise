@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">{{ category.title }}</p>
+      <h2>{{ category.title }}</h2>
+      <p style="margin: 0.75rem 0 0; color: #64748b;">{{ category.description }}</p>
+    </div>
+    <a href="/quote">Get a quote</a>
+  </div>
+  <div class="card-grid">
+    {% for plan in plans %}
+      <div class="card">
+        <h3>{{ plan.title }}</h3>
+        <p>{{ plan.details }}</p>
+        <p><strong>Key benefit:</strong> {{ plan.benefit }}</p>
+        <p><strong>Starting price:</strong> ₹{{ plan.price }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

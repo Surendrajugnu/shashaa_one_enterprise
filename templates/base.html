@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Shashaa One Enterprise is a demo insurance marketplace that resembles PolicyBazaar." />
+    <title>Shashaa One Enterprise | Insurance Marketplace</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <header class="navbar">
+      <a href="/" class="brand">Shashaa One Enterprise</a>
+      <div class="nav-links">
+        <a href="/category/health">Insurance Products</a>
+        <a href="/quote">Renew Your Policy</a>
+        <a href="/quote">Claim</a>
+        <a href="/about">Support</a>
+      </div>
+      <div class="nav-actions">
+        <a href="/quote" class="button-secondary small">Talk to Expert</a>
+        <a href="/login" class="button-outline small">Sign in</a>
+      </div>
+    </header>
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>Shashaa One Enterprise</h3>
+          <p>Compare plans, compare prices, and get quick quotes from top insurers.</p>
+        </div>
+        <div>
+          <h4>Products</h4>
+          <p><a href="/category/health">Health insurance</a></p>
+          <p><a href="/category/life">Life insurance</a></p>
+          <p><a href="/category/motor">Motor insurance</a></p>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <p><a href="/quote">Get a quote</a></p>
+          <p><a href="/companies">Partners</a></p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>support@shashaaoneenterprise.com</p>
+          <p>+91 80000 00000</p>
+        </div>
+      </div>
+      <div class="container footer-note">
+        <small>© {{ now.year }} Shashaa One Enterprise. Designed for easy insurance discovery.</small>
+      </div>
+    </footer>
+  </body>
+</html>
