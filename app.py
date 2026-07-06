@@ -1,13 +1,27 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, abort
 from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail, Message
+from dotenv import load_dotenv
 import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = "change-this-secret-key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///callbacks.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Email Configuration (uses environment variables for security)
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', True)
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME', 'surendra.jugnu@gmail.com')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD', 'test-password')
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER', 'surendra.jugnu@gmail.com')
+
+mail = Mail(app)
 db = SQLAlchemy(app)
 
 class Callback(db.Model):
@@ -177,7 +191,56 @@ def callback():
         new_callback = Callback(name=name, email=email, phone=phone)
         db.session.add(new_callback)
         db.session.commit()
-        flash("Thank you! We'll call you soon.", "success")
+        
+        # Send email to admin
+        admin_email = "surendra.jugnu@gmail.com"
+        admin_subject = f"New Callback Request from {name}"
+        admin_body = f"""
+        New Callback Request Received:
+        
+        Name: {name}
+        Email: {email}
+        Phone: {phone}
+        Submitted: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')}
+        
+        Please contact the customer at the provided phone number or email.
+        
+        Best regards,
+        Shashaa One Enterprise
+        """
+        
+        try:
+            admin_msg = Message(subject=admin_subject, recipients=[admin_email], body=admin_body)
+            mail.send(admin_msg)
+        except Exception as email_error:
+            print(f"Error sending admin email: {email_error}")
+        
+        # Send confirmation email to customer
+        customer_subject = "Callback Request Confirmed - Shashaa One Enterprise"
+        customer_body = f"""
+        Hi {name},
+        
+        Thank you for requesting a callback! We've received your request and our experts will call you soon at {phone}.
+        
+        Your Details:
+        Name: {name}
+        Email: {email}
+        Phone: {phone}
+        
+        We appreciate your interest in our insurance products. Our team will contact you within 24 hours.
+        
+        Best regards,
+        Shashaa One Enterprise Team
+        support@shashaaoneenterprise.com
+        """
+        
+        try:
+            customer_msg = Message(subject=customer_subject, recipients=[email], body=customer_body)
+            mail.send(customer_msg)
+        except Exception as email_error:
+            print(f"Error sending customer email: {email_error}")
+        
+        flash("Thank you! We'll call you soon. Check your email for confirmation.", "success")
     except Exception as e:
         db.session.rollback()
         flash("Error saving your callback request. Please try again.", "error")

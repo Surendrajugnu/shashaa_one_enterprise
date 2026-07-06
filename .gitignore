@@ -12,3 +12,7 @@ ENV/
 dist/
 build/
 .env
+.env.local
+instance/
+*.db
+
