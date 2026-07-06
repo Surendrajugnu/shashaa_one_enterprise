@@ -1,8 +1,24 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, abort
+from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 app.secret_key = "change-this-secret-key"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///callbacks.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class Callback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    phone = db.Column(db.String(15), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Callback {self.name}>'
 
 @app.context_processor
 def inject_now():
@@ -143,6 +159,32 @@ def about():
 def login():
     return render_template("login.html")
 
+@app.route("/get-callback")
+def get_callback_page():
+    return render_template("get_callback.html")
+
+@app.route("/callback", methods=["POST"])
+def callback():
+    name = request.form.get("callback_name", "").strip()
+    email = request.form.get("callback_email", "").strip()
+    phone = request.form.get("callback_phone", "").strip()
+
+    if not name or not email or not phone:
+        flash("Please fill all callback fields.", "error")
+        return redirect(url_for("index"))
+
+    try:
+        new_callback = Callback(name=name, email=email, phone=phone)
+        db.session.add(new_callback)
+        db.session.commit()
+        flash("Thank you! We'll call you soon.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash("Error saving your callback request. Please try again.", "error")
+        print(f"Error: {e}")
+
+    return redirect(url_for("index"))
+
 def calculate_quote(age_range, category, sum_assured, location):
     age_factor = age_brackets.get(age_range, 1.0)
     category_factor = categories.get(category, 1.0)
@@ -152,4 +194,6 @@ def calculate_quote(age_range, category, sum_assured, location):
     return round(premium)
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)

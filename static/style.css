@@ -66,5 +66,30 @@ a {color: inherit; text-decoration: none;}
 .footer a {color: #cbd5e1;}
 .footer small {display: block; margin-top: 1rem; color: #94a3b8;}
 .flash {margin-bottom: 1rem; padding: 1rem 1.2rem; border-radius: 1rem; background: #fee2e2; color: #991b1b;}
-@media (max-width: 980px) {.hero-grid, .hero-highlights, .footer .footer-grid, .quote-grid, .feature-grid {grid-template-columns: 1fr;} .navbar {padding: 1rem 1rem;} .section-heading {flex-direction: column; align-items: flex-start;}}
+.callback-section {background: linear-gradient(135deg, #0b4ef0 0%, #1e40af 100%); color: #ffffff; padding: 3rem 1.5rem; margin: 2rem 0;}
+.callback-container {max-width: 600px; margin: 0 auto; text-align: center;}
+.callback-section h2 {margin: 0 0 0.5rem; font-size: 2rem;}
+.callback-section p {margin: 0 0 2rem; color: rgba(255, 255, 255, 0.9); font-size: 1.05rem;}
+.callback-form {display: flex; flex-direction: column; gap: 1rem;}
+.form-group input {width: 100%; padding: 1rem 1.2rem; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px; background: rgba(255, 255, 255, 0.15); color: #ffffff; font-size: 1rem; placeholder-text: #ffffff;}
+.form-group input::placeholder {color: rgba(255, 255, 255, 0.7);}
+.callback-btn {background: #ffffff; color: #0b4ef0; padding: 1rem 1.6rem; border: none; border-radius: 12px; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;}
+.callback-btn:hover {transform: translateY(-2px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);}
+.callback-page-container {min-height: calc(100vh - 200px); background: linear-gradient(135deg, #eef4ff 0%, #f8fafc 100%); padding: 3rem 1.5rem;}
+.callback-page-wrapper {max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;}
+.callback-page-header h1 {margin: 0 0 1rem; font-size: 2.8rem; color: #0f172a; line-height: 1.2;}
+.callback-page-header p {margin: 0 0 2rem; font-size: 1.2rem; color: #475569; line-height: 1.6;}
+.callback-page-form-section {background: #ffffff; border-radius: 2rem; padding: 2.5rem; box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08); border: 1px solid rgba(15, 23, 42, 0.05);}
+.callback-page-form {display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;}
+.form-field {display: flex; flex-direction: column;}
+.form-field label {margin-bottom: 0.5rem; font-weight: 600; color: #0f172a; font-size: 0.95rem;}
+.form-field input {padding: 1rem 1.2rem; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; font-size: 1rem; color: #0f172a; transition: border-color 0.2s ease;}
+.form-field input:focus {outline: none; border-color: #0b4ef0; background: #ffffff;}
+.form-field input::placeholder {color: #94a3b8;}
+.callback-page-submit-btn {background: linear-gradient(135deg, #0b4ef0 0%, #0854d4 100%); color: #ffffff; padding: 1.2rem 2rem; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; width: 100%;}
+.callback-page-submit-btn:hover {transform: translateY(-2px); box-shadow: 0 20px 50px rgba(11, 78, 240, 0.3);}
+.callback-page-info h3 {margin: 0 0 1rem; font-size: 1.3rem; color: #0f172a;}
+.callback-page-info ul {margin: 0; padding-left: 1.5rem; list-style-type: disc;}
+.callback-page-info li {margin-bottom: 0.8rem; color: #475569; line-height: 1.6;}
+@media (max-width: 980px) {.callback-page-wrapper {grid-template-columns: 1fr;} .callback-page-header h1 {font-size: 2.2rem;} .hero-grid, .hero-highlights, .footer .footer-grid, .quote-grid, .feature-grid {grid-template-columns: 1fr;} .navbar {padding: 1rem 1rem;} .section-heading {flex-direction: column; align-items: flex-start;}}
 @media (max-width: 640px) {.container {padding: 1rem;} .cta-group {flex-direction: column; align-items: stretch;} .highlight-card, .card, .feature-card, .quote-panel, .quote-summary, .partner-card, .testimonial-card {padding: 1.4rem;} .button-primary, .button-secondary {width: 100%;}}
