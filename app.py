@@ -193,7 +193,7 @@ def callback():
         db.session.commit()
         
         # Send email to admin
-        admin_email = "surendra.jugnu@gmail.com"
+        admin_email = "Richaverma0312@gmail.com"
         admin_subject = f"New Callback Request from {name}"
         admin_body = f"""
         New Callback Request Received:
@@ -231,7 +231,7 @@ def callback():
         
         Best regards,
         Shashaa One Enterprise Team
-        support@shashaaoneenterprise.com
+        Richaverma0312@gmail.com
         """
         
         try:
